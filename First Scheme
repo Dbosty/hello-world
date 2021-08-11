@@ -1,0 +1,18 @@
+(define-macro (def func args body)
+      `(define ,func (lambda ,args ,body))
+     )
+
+    (define (tail-replicate x n)
+        (define (helper x n sofar)
+            (cond
+                ((= n 0) sofar)
+                (else 
+                      (helper x (- n 1) (cons x sofar)))
+                )
+            )
+
+        (helper x n ())
+     )
+
+ 
+### This is one of my first codes in Scheme. 
