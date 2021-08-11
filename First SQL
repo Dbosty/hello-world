@@ -1,0 +1,29 @@
+-- Ways to stack 4 dogs to a height of at least 175, ordered by total height
+CREATE TABLE stacks_helper(dogs, stack_height, last_height, n);
+
+INSERT INTO stacks_helper 
+  SELECT name, height, height, 1 AS n 
+    FROM dogs;
+
+INSERT INTO stacks_helper
+  SELECT a.dogs || ", " || b.name, a.stack_height + b.height, b.height, n + 1
+    FROM stacks_helper AS a, dogs AS b
+      WHERE a.last_height < b.height; 
+
+INSERT INTO stacks_helper
+  SELECT a.dogs || ", " || b.name, a.stack_height + b.height, b.height, n + 1
+    FROM stacks_helper AS a, dogs AS b
+      WHERE a.last_height < b.height;
+
+INSERT INTO stacks_helper
+  SELECT a.dogs || ", " || b.name, a.stack_height + b.height, b.height, n + 1
+    FROM stacks_helper AS a, dogs AS b
+      WHERE a.last_height < b.height;
+-- Add your INSERT INTOs here
+
+CREATE TABLE stacks AS
+  SELECT dogs, stack_height
+    FROM stacks_helper
+      WHERE stack_height >= 175 AND n > 3 ORDER BY stack_height; 
+
+### This is one my first SQL queries. 
