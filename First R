@@ -1,0 +1,13 @@
+```{r}
+i=100000
+reds=replicate(i,sum(sample(0:1,3800,repl=T,prob=(c(.53,.47)))))
+data=data.frame(reds)
+ggplot(data,aes(x=reds,y=..density..)) +
+  geom_histogram(bins=1000, fill="red3", col="pink2") +
+  geom_vline(xintercept = 1890, col="blue")
+
+mean_1890 = mean(reds>=1890)
+binom = 1 - pbinom(1889,3800,.47)
+```
+ 
+ ### This is one of my first real codes in R.
